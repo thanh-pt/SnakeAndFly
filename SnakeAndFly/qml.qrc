@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>object/Fly.qml</file>
+        <file>resources/high.png</file>
+        <file>resources/normal.png</file>
+        <file>object/Snake.qml</file>
+        <file>resources/snake_head.png</file>
+        <file>object/Bullet.qml</file>
+    </qresource>
+</RCC>
