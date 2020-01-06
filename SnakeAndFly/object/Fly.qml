@@ -15,12 +15,15 @@ Item {
         targetY = _y
         var sX = Math.abs(x-targetX)
         var sY = Math.abs(y-targetY)
+        var distance = Math.sqrt(sX * sX + sY * sY)
+        incY = sY / distance * 10
+        incX = sX / distance * 10
         if (sX > sY){
-            incY = (y > _y) ? -1 : 1
-            incX = (x > targetX) ? -sX/sY : sX/sY
+            incY *= (y > targetY) ? -1 : 1
+            incX *= (x > targetX) ? -1 : 1
         } else {
-            incX = (x > targetX) ? -1 : 1
-            incY = (y > targetY) ? -sY/sX : sY/sX
+            incX *= (x > targetX) ? -1 : 1
+            incY *= (y > targetY) ? -1 : 1
         }
         fly_image.rotation = -Math.atan((targetX-x)/(targetY-y))*180/Math.PI
         if (targetY < y){
