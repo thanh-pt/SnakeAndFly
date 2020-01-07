@@ -47,7 +47,7 @@ Item {
     }
 
     Timer {
-        interval: 10
+        interval: 50
         running: isMoving
         repeat: true
         onTriggered: {

@@ -7,60 +7,44 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
-    property var bulletManager: []
-    property var bulletComponent: Qt.createComponent("qrc:/object/Bullet.qml")
-    Fly {
-        id: fly
-    }
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            snake.moveTo(mouseX, mouseY)
-            // calculate target
-            var sX = Math.abs(mouseX - snake.x)
-            var sY = Math.abs(mouseY - snake.y)
-            var distance = Math.sqrt(sX * sX + sY * sY)
-            var _incY = sY / distance * 10
-            var _incX = sX / distance * 10
-            if (sX > sY){
-                _incY *= (snake.y > mouseY) ? -1 : 1
-                _incX *= (snake.x > mouseX) ? -1 : 1
-            } else {
-                _incX *= (snake.x > mouseX) ? -1 : 1
-                _incY *= (snake.y > mouseY) ? -1 : 1
+    title: qsTr("Snake and Fly")
+
+    Timer {
+        id: main_timer
+        interval: 50
+        running: true
+        repeat: true
+        property int snake_triger: 0
+        onTriggered: {
+            bulletManager.updateBullets()
+            if (snake_triger++ == 10){
+                snake.run()
+                snake_triger = 0
             }
+        }
+    }
+
+    Item {
+        id: bulletManager
+        property var bulletComponent: Qt.createComponent("qrc:/object/Bullet.qml")
+        property var bullets: []
+        function createBullet(_dir, _x, _y){
             var bulletObj = bulletComponent.createObject(parent,
                                                          {
-                                                             x: snake.x,
-                                                             y: snake.y,
-                                                             incX: _incX,
-                                                             incY: _incY
+                                                             x: _x,
+                                                             y: _y,
+                                                             dir: _dir
                                                          })
-            bulletManager.push(bulletObj)
+            bullets.push(bulletObj)
         }
-    }
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: {
-            fly.moveTo(Math.floor(Math.random() * parent.width),
-                       Math.floor(Math.random() * parent.height))
-        }
-    }
-    Timer {
-        interval: 10
-        running: true
-        repeat: true
-        onTriggered: {
-            for (var i = 0; i < bulletManager.length; i++){
-                var bullet = bulletManager[i]
+        function updateBullets(){
+            for (var i = 0; i < bullets.length; i++){
+                var bullet = bullets[i]
                 if (bullet.isOutOfRange()){
                     bullet.destroy()
-                    bulletManager.splice(i, 1)
+                    bullets.splice(i, 1)
                 } else {
-                    bullet.increasePosition()
+                    bullet.run()
                 }
             }
         }
@@ -68,7 +52,32 @@ Window {
 
     Snake {
         id: snake
-        x: 100
-        y: 100
     }
+
+    Item {
+        id: keypad_manager
+        anchors.fill: parent
+        focus: true
+        Keys.onPressed: {
+            switch (event.key){
+            case Qt.Key_Left:
+                snake.moveLeft()
+                break;
+            case Qt.Key_Right:
+                snake.moveRight()
+                break;
+            case Qt.Key_Up:
+                snake.moveUp()
+                break;
+            case Qt.Key_Down:
+                snake.moveDown()
+                break;
+            case Qt.Key_Space:
+                snake.addTail()
+                //bulletManager.createBullet(snake.currentDir, snake.headX, snake.headY)
+                break;
+            }
+        }
+    }
+
 }
