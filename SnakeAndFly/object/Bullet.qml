@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "qrc:/common"
 
 Item {
     id: bullet_container
@@ -11,14 +12,14 @@ Item {
     property int incX
     property int incY
     function run(){
-        x += dirMatchX[dir] * 10
-        y += dirMatchY[dir] * 10
+        x += dirMatchX[dir] * Define._PIXEL_SIZE
+        y += dirMatchY[dir] * Define._PIXEL_SIZE
     }
     function isOutOfRange(){
-        if (x > parent.width - 20 || x < 0){
+        if (x > parent.width - Define._PIXEL_SIZE || x < 0){
             return true
         }
-        if (y > parent.width + 20 || y < 0){
+        if (y > parent.width - Define._PIXEL_SIZE || y < 0){
             return true
         }
 

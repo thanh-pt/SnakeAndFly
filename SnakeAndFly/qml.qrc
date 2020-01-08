@@ -17,5 +17,7 @@
         <file>resources/snake_body_2.png</file>
         <file>resources/snake_body_3.png</file>
         <file>resources/snake_body_4.png</file>
+        <file>common/Define.qml</file>
+        <file>common/qmldir</file>
     </qresource>
 </RCC>

@@ -11,13 +11,13 @@ Window {
 
     Timer {
         id: main_timer
-        interval: 50
+        interval: 100
         running: true
         repeat: true
         property int snake_triger: 0
         onTriggered: {
             bulletManager.updateBullets()
-            if (snake_triger++ == 10){
+            if (snake_triger++ == 3){
                 snake.run()
                 snake_triger = 0
             }
@@ -80,5 +80,4 @@ Window {
             }
         }
     }
-
 }
