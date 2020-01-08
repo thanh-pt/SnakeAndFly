@@ -4,6 +4,7 @@ Item {
     id: bullet_container
     width: 0
     height: 0
+    z: -1
     property var dirMatchX: [-1, 1, 0, 0]
     property var dirMatchY: [0, 0, -1, 1]
     property int dir

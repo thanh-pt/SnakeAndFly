@@ -73,8 +73,9 @@ Window {
                 snake.moveDown()
                 break;
             case Qt.Key_Space:
-                snake.addTail()
-                //bulletManager.createBullet(snake.currentDir, snake.headX, snake.headY)
+                if (snake.removeTail() === true){
+                    bulletManager.createBullet(snake.currentDir, snake.headX, snake.headY)
+                }
                 break;
             }
         }

@@ -7,5 +7,15 @@
         <file>object/Snake.qml</file>
         <file>resources/snake_head.png</file>
         <file>object/Bullet.qml</file>
+        <file>resources/snake_tail_down.png</file>
+        <file>resources/snake_tail_left.png</file>
+        <file>resources/snake_tail_right.png</file>
+        <file>resources/snake_tail_up.png</file>
+        <file>resources/snake_body_horizontal.png</file>
+        <file>resources/snake_body_verizontal.png</file>
+        <file>resources/snake_body_1.png</file>
+        <file>resources/snake_body_2.png</file>
+        <file>resources/snake_body_3.png</file>
+        <file>resources/snake_body_4.png</file>
     </qresource>
 </RCC>
