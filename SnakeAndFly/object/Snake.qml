@@ -13,19 +13,23 @@ Item {
     property int headY: head.y + head.height / 2
 
     function moveLeft(){
-        currentDir = 0
+        if (head.rotationHead !== matchRotation[1])
+            currentDir = 0
     }
 
     function moveRight(){
-        currentDir = 1
+        if (head.rotationHead !== matchRotation[0])
+            currentDir = 1
     }
 
     function moveUp(){
-        currentDir = 2
+        if (head.rotationHead !== matchRotation[3])
+            currentDir = 2
     }
 
     function moveDown(){
-        currentDir = 3
+        if (head.rotationHead !== matchRotation[2])
+            currentDir = 3
     }
 
     function addTail(){
