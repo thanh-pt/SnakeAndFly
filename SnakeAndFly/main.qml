@@ -19,6 +19,10 @@ Item {
             if (snake_triger++ == 3){
                 snake.run()
                 snake_triger = 0
+                if (fly.visible == false){
+                    fly.newPosition()
+                    fly.visible = true
+                }
             }
             if (snake.headX == fly.x && snake.headY == fly.y){
                 snake.addTail()
@@ -121,16 +125,18 @@ Item {
 
     Fly {
         id: fly
+        visible: false
         function newPosition(){
-            var randX = Math.floor(Math.random() * (parent.width / Define._PIXEL_SIZE -1)) * Define._PIXEL_SIZE
-            var randY = Math.floor(Math.random() * (parent.height / Define._PIXEL_SIZE -1))* Define._PIXEL_SIZE
-            //fly.moveTo(randX, randY)
+            var randX = Math.floor(Math.random() * (parent.width / Define._PIXEL_SIZE - 1)) * Define._PIXEL_SIZE
+            var randY = Math.floor(Math.random() * (parent.height / Define._PIXEL_SIZE - 1))* Define._PIXEL_SIZE
+            if (randX === 0){
+                randX = Define._PIXEL_SIZE
+            }
+            if (randY === 0){
+                randY = Define._PIXEL_SIZE
+            }
             fly.x = randX
             fly.y = randY
-        }
-
-        Component.onCompleted: {
-            newPosition()
         }
     }
 }
