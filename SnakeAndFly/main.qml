@@ -1,13 +1,12 @@
 import QtQuick 2.12
-import QtQuick.Window 2.12
-
+import QtSensors 5.11
 import "qrc:/object"
+import "qrc:/common"
 
-Window {
-    visible: true
-    width: 640
-    height: 480
-    title: qsTr("Snake and Fly")
+Item {
+//    width: 600
+//    height: 500
+    anchors.fill: parent
 
     Timer {
         id: main_timer
@@ -20,6 +19,10 @@ Window {
             if (snake_triger++ == 3){
                 snake.run()
                 snake_triger = 0
+            }
+            if (snake.headX == fly.x && snake.headY == fly.y){
+                snake.addTail()
+                fly.newPosition()
             }
         }
     }
@@ -78,6 +81,56 @@ Window {
                 }
                 break;
             }
+        }
+    }
+
+    Accelerometer {
+        id: accel
+        dataRate: 100
+        active: true
+        function calcPitch(x,y,z) {
+            return -Math.atan2(y, Math.hypot(x, z)) * 180 / Math.PI;
+        }
+        function calcRoll(x,y,z) {
+            return -Math.atan2(x, Math.hypot(y, z)) * 180 / Math.PI;
+        }
+        onReadingChanged: {
+            var roll = calcRoll(accel.reading.x, accel.reading.y, accel.reading.z) * .1
+            var pitch = calcPitch(accel.reading.x, accel.reading.y, accel.reading.z) * .1
+            if (roll > 2){
+                snake.moveRight()
+            } else if (roll < -2){
+                snake.moveLeft()
+            }
+            if (pitch > 2){
+                snake.moveUp()
+            } else if (pitch < -2){
+                snake.moveDown()
+            }
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            if (snake.removeTail() === true){
+                bulletManager.createBullet(snake.currentDir, snake.headX, snake.headY)
+            }
+        }
+    }
+
+    Fly {
+        id: fly
+        function newPosition(){
+            var randX = Math.floor(Math.random() * (parent.width / Define._PIXEL_SIZE -1)) * Define._PIXEL_SIZE
+            var randY = Math.floor(Math.random() * (parent.height / Define._PIXEL_SIZE -1))* Define._PIXEL_SIZE
+            //fly.moveTo(randX, randY)
+            fly.x = randX
+            fly.y = randY
+        }
+
+        Component.onCompleted: {
+            newPosition()
         }
     }
 }

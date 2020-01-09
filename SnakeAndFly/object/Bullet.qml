@@ -3,8 +3,8 @@ import "qrc:/common"
 
 Item {
     id: bullet_container
-    width: 0
-    height: 0
+    width: Define._PIXEL_SIZE
+    height: width
     z: -1
     property var dirMatchX: [-1, 1, 0, 0]
     property var dirMatchY: [0, 0, -1, 1]
@@ -19,7 +19,7 @@ Item {
         if (x > parent.width - Define._PIXEL_SIZE || x < 0){
             return true
         }
-        if (y > parent.width - Define._PIXEL_SIZE || y < 0){
+        if (y > parent.height - Define._PIXEL_SIZE || y < 0){
             return true
         }
 

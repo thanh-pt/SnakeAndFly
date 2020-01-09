@@ -19,5 +19,6 @@
         <file>resources/snake_body_4.png</file>
         <file>common/Define.qml</file>
         <file>common/qmldir</file>
+        <file>object/Button.qml</file>
     </qresource>
 </RCC>

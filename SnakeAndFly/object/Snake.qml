@@ -10,8 +10,8 @@ Item {
     property var dirMatchY: [0, 0, -1, 1]
     property var matchRotation: [90, -90, 180, 0]
     property var bodies: []
-    property int headX: head.x + head.width / 2
-    property int headY: head.y + head.height / 2
+    property int headX: head.x
+    property int headY: head.y
 
     function moveLeft(){
         if (head.rotationHead !== matchRotation[1])

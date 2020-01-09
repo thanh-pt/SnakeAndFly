@@ -1,8 +1,9 @@
 import QtQuick 2.0
+import "qrc:/common"
 
 Item {
-    width: 0
-    height: 0
+    width: Define._PIXEL_SIZE
+    height: width
     property bool isMoving: false
     property int targetX
     property int targetY
